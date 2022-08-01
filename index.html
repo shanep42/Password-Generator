@@ -17,6 +17,28 @@
           <h2>Generate a Password</h2>
         </div>
         <div class="card-body">
+          <div class="parameters">
+            <div>
+              <input type = "checkbox" id = "lowercase" name = "charactertypes1" value="lowercase">
+              <label for = "charactertypes1">Include lowercase letters</label>
+            </div>
+            <div>
+              <input type = "checkbox" id = "uppercase" name = "charactertypes2" value="uppercase">
+              <label for = "charactertypes2">Include uppercase letters</label>
+            </div>
+            <div>
+              <input type = "checkbox" id = "numerals" name = "charactertypes3" value="numerals">
+              <label for = "charactertypes3">Include numbers</label>
+            </div>
+            <div>
+              <input type = "checkbox" id = "specialChar" name = "charactertypes4" value="specialChar">
+              <label for = "charactertypes4">Include special characters</label>
+            </div>
+            <div>
+              <input type = "number" id = "length" name = "passwordLength" min="8" max="128">
+              <label for = "passwordLength">Password length (8 - 128)</label>
+            </div>
+          </div>
           <textarea
             readonly
             id="password"
