@@ -61,8 +61,15 @@ function generatePassword() {
     }
   if (findMatches(generatedPassword, lowercase) == false && (document.getElementById('lowercase').checked)) {
     generatedPassword.splice((Math.floor(Math.random() * (passwordLength + 1))), 1, lowercase[(Math.floor(Math.random() * (lowercase + 1)))])
+    console.log("No lowercase characters selected")
   }
-  //Assemble the 
+  //Assemble the items within the generated password array into a string that can be displayed in the text area.
+  stringedPassword = "";
+  for (let i = 0; i < passwordLength; i++){
+    stringedPassword = stringedPassword + generatedPassword[i]
+  }
+  console.log(`Password as a string: ${stringedPassword}`)
+  //return result of generation funciton
   return generatedPassword;
 }
 
