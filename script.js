@@ -19,26 +19,31 @@ function generatePassword() {
   const numerals = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
   const specialChar = [" ", "!", "\"", "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/", ":", ";", "<", "=", ">", "?", "@", "[", "\\", "]", "^", "_", "`", "{", "|", "}", "~"]
   // Check with user which of these they'd like included
-  // Stitch each selected list together into one new array, from which the password will be generated.
+
+  // Stitch each selected list together into one new array, from which the password will be generated. Insert one random character from each selected array, so that at least one is included regardless of RNG.
   var optionsArray = [];
 
   if (document.getElementById('lowercase').checked) {
     optionsArray = optionsArray.concat(lowercase);
+    generatedPassword.push(lowercase[Math.floor(Math.random() * lowercase.length + 1)])
     console.log("Lowercase checked")
   }
 
   if (document.getElementById('uppercase').checked) {
     optionsArray = optionsArray.concat(uppercase)
+    generatedPassword.push(uppercase[Math.floor(Math.random() * uppercase.length + 1)])
     console.log("Uppercase checked")
   }
 
   if (document.getElementById('numerals').checked) {
     optionsArray = optionsArray.concat(numerals)
+    generatedPassword.push(numerals[Math.floor(Math.random() * numerals.length + 1)])
     console.log("Numerals checked")
   }
 
   if (document.getElementById('specialChar').checked) {
     optionsArray = optionsArray.concat(specialChar)
+    generatedPassword.push(specialChar[Math.floor(Math.random() * specialChar.length + 1)])
     console.log("Special characters checked")
   }
 
@@ -47,6 +52,7 @@ function generatePassword() {
 
 
   console.log(`Available character pool: ${optionsArray}`)
+  
   // Pick characters from the combined character option array by randomly selecting indices until the password is the requested length.
 
   while (generatedPassword.length < passwordLength) {
@@ -55,55 +61,27 @@ function generatePassword() {
 
   console.log(generatedPassword)
 
-  //Check that at least one character from each selected array is represented in the final password.
-
-
-  // Iterates over each index in first array to check it against each index of second array. Returns true (and breaks) if it ever finds a match, returns false if not.
-  function matchCheck (arr1, arr2){
-    for (let i = 0; i < arr1.length; i++){
-      for (let j = 0; j < arr2.length; j++){
-        if (arr1[i] == arr2[j]){
-          return true
-        }
-      }
+  // Shuffle the indices of the generatedPassword array so that the non-random selections are not bunched at the start.
+  // I was stumbling over how to do the algorithm where you basically "draw from a hat" until the hat is empty before I stumbled on the name for it that I'd forgotten: a Fisher-Yates shuffle
+  function shuffle(array) {
+    var m = array.length, t, i;
+  
+    // While there remain elements to shuffle…
+    while (m) {
+  
+      // Pick a remaining element…
+      i = Math.floor(Math.random() * m--);
+  
+      // And swap it with the current element.
+      t = array[m];
+      array[m] = array[i];
+      array[i] = t;
     }
-    return false
+  
+    return array;
   }
 
-  // If selected array was selected and included in the options array but not actually randomly selected from optionsArray by generation, could:
-  //      A) Call the entire randomization effort again until we just happen to get one that fits (could be time intensive?)
-  // if ((document.getElementById('lowercase').checked && !(matchCheck(generatedPassword, lowercase))) 
-  //  || (document.getElementById('uppercase').checked && !(matchCheck(generatedPassword, uppercase)))
-  //  || (document.getElementById('numerals').checked && !(matchCheck(generatedPassword, numerals)))
-  //  || (document.getElementById('specialChar').checked && !(matchCheck(generatedPassword, specialChar)))) {
-  //   generatePassword();
-  //  }
-
-
-  //      B) Randomly insert a character from the unrepresented array at a random index of the generated array, overwriting one to maintain length (might still take multiple passes if we happen to hit a one-of from another list)
-
-  // function testIfAllUsed (arr1) {
-  //   if (document.getElementById('lowercase').checked && !(matchCheck(generatedPassword, lowercase))) {
-  //     arr1.splice((Math.floor(Math.random() * (password.length + 1))), 1, lowercase[Math.floor(Math.random() * (lowercase.length + 1))]);
-  //     testIfAllUsed(arr1);
-  //   }
-  //   if (document.getElementById('uppercase').checked && !(matchCheck(generatedPassword, uppercase))) {
-  //     arr1.splice((Math.floor(Math.random() * (password.length + 1))), 1, uppercase[Math.floor(Math.random() * (uppercase.length + 1))]);
-  //     testIfAllUsed(arr1);
-  //   }
-  //   if (document.getElementById('numerals').checked && !(matchCheck(generatedPassword, numerals))) {
-  //     arr1.splice((Math.floor(Math.random() * (password.length + 1))), 1, numerals[Math.floor(Math.random() * (numerals.length + 1))]);
-  //     testIfAllUsed(arr1);
-  //   }
-  //   if (document.getElementById('specialChar').checked && !(matchCheck(generatedPassword, specialChar))) {
-  //     arr1.splice((Math.floor(Math.random() * (password.length + 1))), 1, specialChar[Math.floor(Math.random() * (specialChar.length + 1))]);
-  //     testIfAllUsed(arr1);
-  //   }
-  // }
-
-  // testIfAllUsed(generatedPassword)
-
-
+  generatedPassword = shuffle(generatedPassword);
   //Assemble the items within the generated password array into a string that can be displayed in the text area.
   stringedPassword = "";
   for (let i = 0; i < passwordLength; i++){
@@ -111,6 +89,8 @@ function generatePassword() {
   }
   console.log(`Password as a string: ${stringedPassword}`)
   //return result of generation funciton
+
+
   return generatedPassword;
 }
 
