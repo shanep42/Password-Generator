@@ -56,13 +56,54 @@ function generatePassword() {
   console.log(generatedPassword)
 
   //Check that at least one character from each selected array is represented in the final password.
-    function findMatches(arr1, arr2) {
-      return arr1.some(item => arr1.includes(item))
+
+
+  // Iterates over each index in first array to check it against each index of second array. Returns true (and breaks) if it ever finds a match, returns false if not.
+  function matchCheck (arr1, arr2){
+    for (let i = 0; i < arr1.length; i++){
+      for (let j = 0; j < arr2.length; j++){
+        if (arr1[i] == arr2[j]){
+          return true
+        }
+      }
     }
-  if (findMatches(generatedPassword, lowercase) == false && (document.getElementById('lowercase').checked)) {
-    generatedPassword.splice((Math.floor(Math.random() * (passwordLength + 1))), 1, lowercase[(Math.floor(Math.random() * (lowercase + 1)))])
-    console.log("No lowercase characters selected")
+    return false
   }
+
+  // If selected array was selected and included in the options array but not actually randomly selected from optionsArray by generation, could:
+  //      A) Call the entire randomization effort again until we just happen to get one that fits (could be time intensive?)
+  // if ((document.getElementById('lowercase').checked && !(matchCheck(generatedPassword, lowercase))) 
+  //  || (document.getElementById('uppercase').checked && !(matchCheck(generatedPassword, uppercase)))
+  //  || (document.getElementById('numerals').checked && !(matchCheck(generatedPassword, numerals)))
+  //  || (document.getElementById('specialChar').checked && !(matchCheck(generatedPassword, specialChar)))) {
+  //   generatePassword();
+  //  }
+
+
+  //      B) Randomly insert a character from the unrepresented array at a random index of the generated array, overwriting one to maintain length (might still take multiple passes if we happen to hit a one-of from another list)
+
+  // function testIfAllUsed (arr1) {
+  //   if (document.getElementById('lowercase').checked && !(matchCheck(generatedPassword, lowercase))) {
+  //     arr1.splice((Math.floor(Math.random() * (password.length + 1))), 1, lowercase[Math.floor(Math.random() * (lowercase.length + 1))]);
+  //     testIfAllUsed(arr1);
+  //   }
+  //   if (document.getElementById('uppercase').checked && !(matchCheck(generatedPassword, uppercase))) {
+  //     arr1.splice((Math.floor(Math.random() * (password.length + 1))), 1, uppercase[Math.floor(Math.random() * (uppercase.length + 1))]);
+  //     testIfAllUsed(arr1);
+  //   }
+  //   if (document.getElementById('numerals').checked && !(matchCheck(generatedPassword, numerals))) {
+  //     arr1.splice((Math.floor(Math.random() * (password.length + 1))), 1, numerals[Math.floor(Math.random() * (numerals.length + 1))]);
+  //     testIfAllUsed(arr1);
+  //   }
+  //   if (document.getElementById('specialChar').checked && !(matchCheck(generatedPassword, specialChar))) {
+  //     arr1.splice((Math.floor(Math.random() * (password.length + 1))), 1, specialChar[Math.floor(Math.random() * (specialChar.length + 1))]);
+  //     testIfAllUsed(arr1);
+  //   }
+  // }
+
+  // testIfAllUsed(generatedPassword)
+
+
   //Assemble the items within the generated password array into a string that can be displayed in the text area.
   stringedPassword = "";
   for (let i = 0; i < passwordLength; i++){
