@@ -91,7 +91,7 @@ function generatePassword() {
   //return result of generation funciton
 
 
-  return generatedPassword;
+  return stringedPassword;
 }
 
 // Add event listener to generate button
