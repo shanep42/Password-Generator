@@ -17,7 +17,7 @@ function generatePassword() {
   const uppercase = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"] // I'm 100% sure there is an easier way to do these.
   const lowercase = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
   const numerals = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
-  const specialChar = [" ", "!", "\"", "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/", ":", ";", "<", "=", ">", "?", "@", "[", "\\", "]", "^", "_", "`", "{", "|", "}", "~"]
+  const specialChar = ["!", "\"", "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/", ":", ";", "<", "=", ">", "?", "@", "[", "\\", "]", "^", "_", "`", "{", "|", "}", "~"]
   // Check with user which of these they'd like included
 
   // Stitch each selected list together into one new array, from which the password will be generated. Insert one random character from each selected array, so that at least one is included regardless of RNG.
@@ -25,25 +25,25 @@ function generatePassword() {
 
   if (document.getElementById('lowercase').checked) {
     optionsArray = optionsArray.concat(lowercase);
-    generatedPassword.push(lowercase[Math.floor(Math.random() * lowercase.length + 1)])
+    generatedPassword.push(lowercase[Math.floor(Math.random() * lowercase.length)])
     console.log("Lowercase checked")
   }
 
   if (document.getElementById('uppercase').checked) {
     optionsArray = optionsArray.concat(uppercase)
-    generatedPassword.push(uppercase[Math.floor(Math.random() * uppercase.length + 1)])
+    generatedPassword.push(uppercase[Math.floor(Math.random() * uppercase.length)])
     console.log("Uppercase checked")
   }
 
   if (document.getElementById('numerals').checked) {
     optionsArray = optionsArray.concat(numerals)
-    generatedPassword.push(numerals[Math.floor(Math.random() * numerals.length + 1)])
+    generatedPassword.push(numerals[Math.floor(Math.random() * numerals.length)])
     console.log("Numerals checked")
   }
 
   if (document.getElementById('specialChar').checked) {
     optionsArray = optionsArray.concat(specialChar)
-    generatedPassword.push(specialChar[Math.floor(Math.random() * specialChar.length + 1)])
+    generatedPassword.push(specialChar[Math.floor(Math.random() * specialChar.length)])
     console.log("Special characters checked")
   }
 
@@ -56,7 +56,7 @@ function generatePassword() {
   // Pick characters from the combined character option array by randomly selecting indices until the password is the requested length.
 
   while (generatedPassword.length < passwordLength) {
-    generatedPassword.push(optionsArray[Math.floor(Math.random() * (optionsArray.length + 1))])
+    generatedPassword.push(optionsArray[Math.floor(Math.random() * (optionsArray.length))])
   }
 
   console.log(generatedPassword)
