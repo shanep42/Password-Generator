@@ -7,6 +7,7 @@ The purpose of this generator is to allow the user to specify criteria for a pas
 Humans are very bad at selecting random anything - they're even bad at recognizing randomness when they see it - so password generators are a very important tool for creating keys that aren't easily reconstructable if you know what they're based off. A bad password is based on your birthday, your dog's name, or your favorite musician. A good password, you might say, is based off as little as possible.
 
 ![The interface, with added check boxes and number input](assets/screenshot.png "The new interface")
+https://shanep42.github.io/Password-Generator/
 
 ### Challenges
 
